@@ -1,19 +1,27 @@
 import java.util.ArrayList;
+import java.util.List;
 
 //serve para RELACIONAR Pedido <> Produto
 public class PedidoProduto {
-    public static ArrayList< PedidoProduto > lista = new ArrayList<>();
+    private static List< PedidoProduto > lista = new ArrayList< E >();
+    public static List< PedidoProduto > get() {
+        return lista;
+    }
+    public static void add( PedidoProduto pedProd ) {
+        lista.add( pedProd );
+    }
+
 
     private Pedido pedido;
     private Produto produto;
     private int quantidade;
     private double precoPagar; //sera decide por um calculo interno
 
-    public boolean ItemPedido(Pedido pedido, Produto produto, int quantidade) {
-        return ItensPedido(pedido, produto, quantidade, 0);
+    public boolean set(Pedido pedido, Produto produto, int quantidade) {
+        return PedidoProduto(pedido, produto, quantidade, 0);
     }
 
-    public boolean ItemPedido(Pedido pedido, Produto produto, int quantidade, double valorAmais  ) {
+    public boolean set(Pedido pedido, Produto produto, int quantidade, double valorAmais  ) {
         if(produto.getQuantidadeProduto() > quantidade){
             //CASO A QUANTIDADE DE PRODUTOS SEJA MAIOR QUE A QUANTIDADE SOLICITADA
             // = prossegir com a inserção do item

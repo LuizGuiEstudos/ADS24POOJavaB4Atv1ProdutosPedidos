@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /*
 - Encontre o erro e faça a correção
@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        PedidoProduto item = new PedidoProduto();
+        PedidoProduto pedProd = new PedidoProduto();
 
         ///ENTRADA INFORMAÇÕES
         //CLIENTE
@@ -37,34 +37,48 @@ public class Main {
         System.out.println( "-CPF" );
         System.out.println( "<" );
         String clCPF = scan.next();
+
+        Cliente cl1 = new Cliente( clNome, clCPF );
+        Cliente.add(cl1);
+
         //PRODUTO
         System.out.println( ">Digite a seguintes informações sobre o Produto:" );
         System.out.println( "-Nome:" );
-        System.out.println( "<" );
+        System.out.print( "<" );
         String prodNome = scan.next();
 
         System.out.println( "-Preço:" );
-        System.out.println( "<" );
+        System.out.print( "<" );
         Double prodPreco = scan.nextDouble();
 
         System.out.println( "-Quantidade:" );
-        System.out.println( "<" );
+        System.out.print( "<" );
         int prodQuantidade = scan.nextInt();
+
+        Produto prod1 = new Produto( prodNome, prodPreco, prodQuantidade );
+        Produto.add( prod1 );
 
 
         //PEDIDO ...
-        //-SELECIONAR CLIENTE
-
-        ///LISTAGENS
-        //CLIENTE
+        Pedido ped1 = new Pedido();
 
 
-        //INSERIR PedidoProduto NA LISTA DE PedidoProdutos
+
+
+        //...-SELECIONAR CLIENTE
+
+
+
+
+
+
+
+        //RELACIONAR PRODUTO COM PEDIDO
         //caso PedidoProduto seja criado
-        if( item.ItemPedido(pedido1, produto1, 2,.5) ){
-            itens.add(item);
+        if( pedProd1.set(pedido1, produto1, 2,.5) ){
+            PedidoProduto.add( pedProd1 );
             System.out.println("Produto Inserido No Pedido com sucesso!");
-        }else {
+        } else {
             System.out.println("Quantidade Insuficiente do produto!");
         }
 
@@ -81,9 +95,33 @@ public class Main {
 
     }
 
-    private void printCliente( Cliente cl ) {
+    private static void printClientes() {
+        List< Cliente > lClientes = Cliente.get();
+        for( int i=0; i<lClientes.size(); i++ ) {
+            Cliente clI = lClientes.get( i );
+            System.out.println( "...ID: " + i );
+            printCliente( clI );
+        }
+    }
+
+    private static void printCliente( Cliente cl ) {
         System.out.println( ".Nome:" + cl.getNome() );
         System.out.println( ".CPF:" + cl.getCpf() );
+    }
+
+
+    private static Cliente selectClienteByID() {
+        System.out.println( " ### SELECIONAR CLIENTE ###" );
+
+        List< Cliente > cls = Cliente.get();
+        printClientes();
+
+        System.out.println( "-Selecione a ID do Cliente desejado: ");
+        System.out.print("<");
+        int id = scan.nextInt();
+
+        clSelecionado = cls.get(id);
+        return clSelecionado;
     }
 
 }

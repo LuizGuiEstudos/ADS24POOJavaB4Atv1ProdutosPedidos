@@ -1,6 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 //classe primaria para registrar PRODUTOS existentes através de seus objetos
 public class Produto {
-    public static ArrayList< Produto > lista = new ArrayList<>();
+
+    private static List<Produto> lista = new ArrayList<>();
+    public static void add( Produto prod ) {
+        lista.add( prod );
+    }
+    public static List<Produto> get(){
+        return lista;
+    }
+
 
     private String nomeProduto;
     private double precoProduto;

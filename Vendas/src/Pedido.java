@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 //Classe Relacional para CLIENTE e LISTAGEM de itens pedidos
 //possiblidade de relacionar outras informações como fretagem
 public class Pedido {
+
     public static ArrayList< Pedido > lista = new ArrayList<>();
 
     private int numPedido;

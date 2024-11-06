@@ -1,22 +1,36 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente {
-    private static ArrayList< Cliente > lista = new ArrayList<>();
+    private static List< Cliente > lista = new ArrayList<  >();
 
-    private String nome;
-    private String cpf;
-    private ArrayList<Pedido> pedido;
-
+    public Cliente() {
+    }
     public Cliente(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
-        this.pedido = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
 
         init();
     }
 
-    public Cliente() {
+    public static void add( Cliente cl ) {
+        lista.add( cl );
     }
+    public static List<Cliente> get() {
+        return lista;
+    }
+
+
+    private String nome;
+    private String cpf;
+    private ArrayList<Pedido> pedidos;
+
+
+
+
+
+
 
     public String getCpf() {
         return cpf;
@@ -39,8 +53,8 @@ public class Cliente {
         System.out.println(this.cpf);
     }
 
-    public ArrayList<Pedido> getPedido() {
-        return pedido;
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
     }
 
     private void init(){
