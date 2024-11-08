@@ -55,13 +55,13 @@ public class Produto {
         return quantidadeProduto;
     }
 
-    public void mostrarProduto() {
+    public void print() {
         System.out.println("Nome: " + getNomeProduto());
         System.out.println("Preço Produto: " + getPrecoProduto());
         System.out.println("Quantidade: " + getQuantidadeProduto());
     }
 
     private void init() {
-        lista.add(this);
+        add(this);
     }
 }

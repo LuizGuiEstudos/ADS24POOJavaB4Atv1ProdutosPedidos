@@ -39,7 +39,6 @@ public class Main {
         String clCPF = scan.next();
 
         Cliente cl1 = new Cliente( clNome, clCPF );
-        Cliente.add(cl1);
 
         //PRODUTO
         System.out.println( ">Digite a seguintes informações sobre o Produto:" );
@@ -59,55 +58,59 @@ public class Main {
         Produto.add( prod1 );
 
 
-        //PEDIDO ...
-        Pedido ped1 = new Pedido();
+        ///PEDIDO ...
+         //select cliente
+        Cliente slCl = selectClienteByID();
+        Pedido ped1 = new Pedido( slCl );
 
 
-
-
-        //...-SELECIONAR CLIENTE
-
-
-
-
-
-
-
+        ///PEDIDO - PRODUTOS
         //RELACIONAR PRODUTO COM PEDIDO
+        PedidoProduto pedProd1 = new PedidoProduto();
+
+        System.out.println("-Quantidade do produto:");
+        System.out.print("<");
+        int quantidade = scan.nextInt();
+
+        System.out.println( "-Variação do valor(desconto ou acrescimo):" );
+        System.out.print( "<" );
+        double varValor = scan.nextDouble();
+
         //caso PedidoProduto seja criado
-        if( pedProd1.set(pedido1, produto1, 2,.5) ){
-            PedidoProduto.add( pedProd1 );
-            System.out.println("Produto Inserido No Pedido com sucesso!");
+        if( pedProd1.set(ped1, prod1, quantidade, varValor) ){
+            System.out.println("Produto inserido no Pedido com sucesso!");
         } else {
             System.out.println("Quantidade Insuficiente do produto!");
         }
 
 
-        //DISPLAY CONSOLE ITENS
-        for (PedidoProduto iten : itens) {
-            iten.mostrarItemPedido();
-            System.out.println("--------------");
-        }
 
     }
 
-    private void listarClientes() {
-
-    }
-
+    ////PRINTS
     private static void printClientes() {
         List< Cliente > lClientes = Cliente.get();
         for( int i=0; i<lClientes.size(); i++ ) {
             Cliente clI = lClientes.get( i );
             System.out.println( "...ID: " + i );
-            printCliente( clI );
+            clI.print();
+        }
+    }
+    private static void printProdutos() {
+        for (PedidoProduto lI : Produto.get() ) {
+            System.out.println("--------------");
+            lI.print();
+            System.out.println("--------------");
+        }
+    }
+    private static void printPedidoProdutos() {
+        for (PedidoProduto pedProdI : PedidoProduto.get() ) {
+            System.out.println("--------------");
+            pedProdI.mostrarPedidoProduto();
+            System.out.println("--------------");
         }
     }
 
-    private static void printCliente( Cliente cl ) {
-        System.out.println( ".Nome:" + cl.getNome() );
-        System.out.println( ".CPF:" + cl.getCpf() );
-    }
 
 
     private static Cliente selectClienteByID() {
@@ -120,7 +123,7 @@ public class Main {
         System.out.print("<");
         int id = scan.nextInt();
 
-        clSelecionado = cls.get(id);
+       Cliente clSelecionado = cls.get(id);
         return clSelecionado;
     }
 

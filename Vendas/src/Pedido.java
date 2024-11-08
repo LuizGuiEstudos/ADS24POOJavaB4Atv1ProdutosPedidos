@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-//Classe Relacional para CLIENTE e LISTAGEM de itens pedidos
+//Classe Para Relacionar para CLIENTE e PRODUTOS
 //possiblidade de relacionar outras informações como fretagem
 public class Pedido {
 
@@ -9,15 +9,16 @@ public class Pedido {
     private int numPedido;
     private Cliente cliente;
 
-    public Pedido(Cliente cliente, int numPedido) {
+    private int seqNum;
+
+    public Pedido(Cliente cliente) {
         this.cliente = cliente;
-        this.numPedido = numPedido;
+        this.numPedido = seqNum++;
 
         init();
     }
 
-    public Pedido() {
-        init();
+    private Pedido() {
     }
 
 
@@ -44,6 +45,9 @@ public class Pedido {
     }
 
     private void init() {
+
         lista.add(this);
+
+
     }
 }

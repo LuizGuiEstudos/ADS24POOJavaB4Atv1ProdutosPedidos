@@ -3,11 +3,11 @@ import java.util.List;
 
 //serve para RELACIONAR Pedido <> Produto
 public class PedidoProduto {
-    private static List< PedidoProduto > lista = new ArrayList< E >();
+    private static List< PedidoProduto > lista = new ArrayList<>();
     public static List< PedidoProduto > get() {
         return lista;
     }
-    public static void add( PedidoProduto pedProd ) {
+    private static void add( PedidoProduto pedProd ) {
         lista.add( pedProd );
     }
 
@@ -18,23 +18,24 @@ public class PedidoProduto {
     private double precoPagar; //sera decide por um calculo interno
 
     public boolean set(Pedido pedido, Produto produto, int quantidade) {
-        return PedidoProduto(pedido, produto, quantidade, 0);
+        return set(pedido, produto, quantidade, 0);
     }
 
-    public boolean set(Pedido pedido, Produto produto, int quantidade, double valorAmais  ) {
+    public boolean set(Pedido pedido, Produto produto, int quantidade, double variacaoDeValor  ) {
         if(produto.getQuantidadeProduto() > quantidade){
             //CASO A QUANTIDADE DE PRODUTOS SEJA MAIOR QUE A QUANTIDADE SOLICITADA
             // = prossegir com a inserção do item
             //-CALCULAR precoPagar
-            this.precoPagar =  produto.getPrecoProduto() + quantidade + valorAmais;
+            this.precoPagar =  (produto.getPrecoProduto() * quantidade) + variacaoDeValor;
 
             this.setQuantidade(quantidade);
-            this.setPrecoPagar(precoPagar);
             this.produto = produto;
             this.pedido = pedido;
             produto.setQuantidadeProduto(produto.getQuantidadeProduto() - this.getQuantidade());
+
+
             //LISTA
-            init();
+            add( this );
 
             return true;
 
@@ -76,14 +77,11 @@ public class PedidoProduto {
         this.quantidade = quantidade;
     }
 
-    public void mostrarItemPedido(){
+    public void mostrarPedidoProduto(){
         this.pedido.mostrarPedido();
         System.out.println("Produto:" + this.produto.getNomeProduto());
         System.out.println("Quantidade: " + this.getQuantidade());
-        System.out.println("Produto:" + this.getPrecoPagar());
+        System.out.println("Preço a pagar:" + this.getPrecoPagar());
     }
 
-    private void init() {
-        lista.add(this);
-    }
 }
