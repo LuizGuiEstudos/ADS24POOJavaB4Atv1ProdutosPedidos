@@ -4,7 +4,10 @@ import java.util.ArrayList;
 //possiblidade de relacionar outras informações como fretagem
 public class Pedido {
 
-    public static ArrayList< Pedido > lista = new ArrayList<>();
+    private static ArrayList< Pedido > lista = new ArrayList<>();
+    public static ArrayList< Pedido > get() {
+        return lista;
+    }
 
     private int numPedido;
     private Cliente cliente;
@@ -21,6 +24,10 @@ public class Pedido {
     private Pedido() {
     }
 
+    public void print() {
+        System.out.println(".número do pedido: " + numPedido);
+        System.out.println(".cliente: " + cliente.getNome()  );
+    }
 
 
     public Cliente getCliente() {

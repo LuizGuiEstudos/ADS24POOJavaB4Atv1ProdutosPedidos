@@ -41,8 +41,8 @@ public class Cliente {
     }
 
     public void print(){
-        System.out.println( ".Nome: " this.nome);
-        System.out.println( ".CPF: " this.cpf);
+        System.out.println( ".Nome: " + this.nome);
+        System.out.println( ".CPF: " + this.cpf);
     }
 
 

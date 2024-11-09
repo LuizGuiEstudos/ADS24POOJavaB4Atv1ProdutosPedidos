@@ -28,19 +28,46 @@ public class Main {
         PedidoProduto pedProd = new PedidoProduto();
 
         ///ENTRADA INFORMAÇÕES
+
+
+
+
+
+
+
+
+        ///PEDIDO - PRODUTOS
+        //RELACIONAR PRODUTO COM PEDIDO
+
+
+
+
+
+
+    }
+
+    //ACTIONS
+    private static void addCliente(){
         //CLIENTE
+        System.out.println("### ADICIONAR CLIENTE ###");
         System.out.println( ">Digite a seguintes informações sobre o Cliente:" );
         System.out.println( "-Nome" );
-        System.out.println( "<" );
+        System.out.print( "<" );
         String clNome = scan.next();
 
         System.out.println( "-CPF" );
-        System.out.println( "<" );
+        System.out.print( "<" );
         String clCPF = scan.next();
 
         Cliente cl1 = new Cliente( clNome, clCPF );
 
+        System.out.println( ">O seguinte Cliente foi criado:" );
+        cl1.print();
+    }
+    private static void addProduto() {
         //PRODUTO
+        System.out.println(" ### ADICIONAR PRODUTO ### " );
+
         System.out.println( ">Digite a seguintes informações sobre o Produto:" );
         System.out.println( "-Nome:" );
         System.out.print( "<" );
@@ -57,18 +84,26 @@ public class Main {
         Produto prod1 = new Produto( prodNome, prodPreco, prodQuantidade );
         Produto.add( prod1 );
 
+        System.out.println(">O seguinte Produto foi criado: ");
+        prod1.print();
+    }
 
-        ///PEDIDO ...
-         //select cliente
+    private static void addPedido() {
+        System.out.println(" ### ADICIONAR PEDIDO ### ");
+        System.out.println("-Selecionar Cliente do novo pedido:");
         Cliente slCl = selectClienteByID();
-        Pedido ped1 = new Pedido( slCl );
+        Pedido ped = new Pedido( slCl );
+
+        System.out.println( ">o seguinte Pedido foi criado:" );
+        ped.print();
+    }
+
+    private static void addPedidoProduto() {
+        SPedidoProduto pedProd1 = new PedidoProduto();
 
 
-        ///PEDIDO - PRODUTOS
-        //RELACIONAR PRODUTO COM PEDIDO
-        PedidoProduto pedProd1 = new PedidoProduto();
 
-        System.out.println("-Quantidade do produto:");
+        System.out.println("-Quantidade do produto solicitada:");
         System.out.print("<");
         int quantidade = scan.nextInt();
 
@@ -78,12 +113,10 @@ public class Main {
 
         //caso PedidoProduto seja criado
         if( pedProd1.set(ped1, prod1, quantidade, varValor) ){
-            System.out.println("Produto inserido no Pedido com sucesso!");
+            System.out.println(">Item inserido no Pedido com sucesso!");
         } else {
-            System.out.println("Quantidade Insuficiente do produto!");
+            System.out.println(">Quantidade Insuficiente do produto!");
         }
-
-
 
     }
 
@@ -96,25 +129,33 @@ public class Main {
             clI.print();
         }
     }
-    private static void printProdutos() {
-        for (PedidoProduto lI : Produto.get() ) {
-            System.out.println("--------------");
+    private static void printPedidos() {
+        for (Pedido lI : Pedido.get() ) {
+            System.out.println();
             lI.print();
-            System.out.println("--------------");
+            System.out.println();
+        }
+    }
+    private static void printProdutos() {
+        for (Produto lI : Produto.get() ) {
+            System.out.println();
+            lI.print();
+            System.out.println();
         }
     }
     private static void printPedidoProdutos() {
-        for (PedidoProduto pedProdI : PedidoProduto.get() ) {
-            System.out.println("--------------");
-            pedProdI.mostrarPedidoProduto();
-            System.out.println("--------------");
+        for (PedidoProduto lI : PedidoProduto.get() ) {
+            System.out.println();
+            lI.print();
+            System.out.println();
         }
     }
 
 
-
+    ///SELECTS
     private static Cliente selectClienteByID() {
-        System.out.println( " ### SELECIONAR CLIENTE ###" );
+        System.out.println( ">lista de Clientes:" );
+        System.out.println();
 
         List< Cliente > cls = Cliente.get();
         printClientes();
@@ -124,7 +165,67 @@ public class Main {
         int id = scan.nextInt();
 
        Cliente clSelecionado = cls.get(id);
-        return clSelecionado;
+       System.out.println(">O seguinte Cliente foi selecionado: ");
+       clSelecionado.print();
+
+       return clSelecionado;
+    }
+
+    private static Produto selectProdutoById() {
+        System.out.println( ">lista de Produtos:" );
+        System.out.println();
+
+        List< Produto > prods = Produto.get();
+        printProdutos();
+
+        System.out.println( "-Selecione a ID do Produto desejado: ");
+        System.out.print("<");
+        int id = scan.nextInt();
+
+        Produto prodSel = prods.get(id);
+
+        System.out.println(">O seguinte Produto foi selecionado: ");
+        prodSel.print();
+
+        return prodSel;
+    }
+
+    private static Pedido selectPedidoByID() {
+
+
+        List< Pedido > peds = Pedido.get();
+
+        System.out.println( ">lista de Pedidos:" );
+        System.out.println();
+
+        printPedidos();
+
+        System.out.println("-selecione Pedido pelo seu número:");
+        System.out.print("<");
+        int inNum = scan.nextInt();
+        boolean find = false;
+        Pedido pedEncontrado = null;
+
+        for ( Pedido pedI : peds )
+        {
+            if (pedI.getNumPedido() == inNum) {
+                find = true;
+                pedEncontrado = pedI;
+            }
+        }
+
+        if(find) {
+            System.out.println(">O seguinte pedido foi seleciona:");
+            System.out.println(">O seguinte Produto foi adicionado:" );
+            pedEncontrado.print();
+        } else {
+            System.out.println( ">Número de Pedido inesxistente!" );
+        }
+
+
+        return pedEncontrado;
+
+
     }
 
 }

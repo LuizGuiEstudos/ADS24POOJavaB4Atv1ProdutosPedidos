@@ -77,11 +77,17 @@ public class PedidoProduto {
         this.quantidade = quantidade;
     }
 
-    public void mostrarPedidoProduto(){
+    public Pedido getPedido(){
+        return pedido;
+    }
+
+    public void print(){
         this.pedido.mostrarPedido();
         System.out.println("Produto:" + this.produto.getNomeProduto());
         System.out.println("Quantidade: " + this.getQuantidade());
         System.out.println("Preço a pagar:" + this.getPrecoPagar());
     }
+
+
 
 }
