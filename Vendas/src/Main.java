@@ -24,30 +24,51 @@ public class Main {
 
     public static void main(String[] args) {
 
+        int scanOpt = -1;
 
-        PedidoProduto pedProd = new PedidoProduto();
+        while( scanOpt != 0 )
+        {
 
-        ///ENTRADA INFORMAÇÕES
+            System.out.print( "-Selecione uma ação:" );
+            System.out.println( "1-adicionar cliente, 2-adicionar produto, 3-adicionar pedido, 4-adicionar item ao pedido");
+            System.out.println( "5-listar clientes, 6-listar produtos, 7-listar itens e pedidos" );
 
+            scanOpt = scan.nextInt();
 
-
-
-
-
-
-
-        ///PEDIDO - PRODUTOS
-        //RELACIONAR PRODUTO COM PEDIDO
-
-
-
-
-
+            switch( scanOpt ) {
+                case 0:
+                    System.out.println(">Saindo do programa...");
+                case 1:
+                    addCliente();
+                    break;
+                case 2:
+                    addProduto();
+                    break;
+                case 3:
+                    Cliente clSelected = selectClienteByID();
+                    addPedido( clSelected );
+                    break;
+                case 4:
+                    Pedido pedSelected = selectPedidoByID();
+                    Produto prodSelected = selectProdutoById();
+                    addPedidoProduto( pedSelected, prodSelected );
+                    break;
+                case 5:
+                    printClientes();
+                    break;
+                case 6:
+                    printProdutos();
+                    break;
+                case 7:
+                    printPedidoProdutos();
+                    break;
+            }
+        }
 
     }
 
     //ACTIONS
-    private static void addCliente(){
+    private static Cliente addCliente(){
         //CLIENTE
         System.out.println("### ADICIONAR CLIENTE ###");
         System.out.println( ">Digite a seguintes informações sobre o Cliente:" );
@@ -59,12 +80,11 @@ public class Main {
         System.out.print( "<" );
         String clCPF = scan.next();
 
-        Cliente cl1 = new Cliente( clNome, clCPF );
+        Cliente cl = new Cliente( clNome, clCPF );
 
-        System.out.println( ">O seguinte Cliente foi criado:" );
-        cl1.print();
+        return cl;
     }
-    private static void addProduto() {
+    private static Produto addProduto() {
         //PRODUTO
         System.out.println(" ### ADICIONAR PRODUTO ### " );
 
@@ -81,27 +101,24 @@ public class Main {
         System.out.print( "<" );
         int prodQuantidade = scan.nextInt();
 
-        Produto prod1 = new Produto( prodNome, prodPreco, prodQuantidade );
-        Produto.add( prod1 );
+        Produto prod = new Produto( prodNome, prodPreco, prodQuantidade );
 
-        System.out.println(">O seguinte Produto foi criado: ");
-        prod1.print();
+        return prod;
+
+
     }
 
-    private static void addPedido() {
+    private static Pedido addPedido( Cliente cl ) {
         System.out.println(" ### ADICIONAR PEDIDO ### ");
         System.out.println("-Selecionar Cliente do novo pedido:");
-        Cliente slCl = selectClienteByID();
-        Pedido ped = new Pedido( slCl );
 
-        System.out.println( ">o seguinte Pedido foi criado:" );
-        ped.print();
+        Pedido ped = new Pedido( cl );
+
+        return ped;
     }
 
-    private static void addPedidoProduto() {
-        SPedidoProduto pedProd1 = new PedidoProduto();
-
-
+    private static void addPedidoProduto( Pedido ped, Produto prod ) {
+        PedidoProduto pedProd1 = new PedidoProduto();
 
         System.out.println("-Quantidade do produto solicitada:");
         System.out.print("<");
@@ -112,7 +129,7 @@ public class Main {
         double varValor = scan.nextDouble();
 
         //caso PedidoProduto seja criado
-        if( pedProd1.set(ped1, prod1, quantidade, varValor) ){
+        if( pedProd1.set(ped, prod, quantidade, varValor) ){
             System.out.println(">Item inserido no Pedido com sucesso!");
         } else {
             System.out.println(">Quantidade Insuficiente do produto!");
@@ -137,7 +154,11 @@ public class Main {
         }
     }
     private static void printProdutos() {
+        int i = 0;
         for (Produto lI : Produto.get() ) {
+
+            System.out.println("...ID:" + i++);
+
             System.out.println();
             lI.print();
             System.out.println();

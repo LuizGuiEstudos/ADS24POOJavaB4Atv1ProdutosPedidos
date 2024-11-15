@@ -21,8 +21,7 @@ public class Pedido {
         init();
     }
 
-    private Pedido() {
-    }
+
 
     public void print() {
         System.out.println(".número do pedido: " + numPedido);

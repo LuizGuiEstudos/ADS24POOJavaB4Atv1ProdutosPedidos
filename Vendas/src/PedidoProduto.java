@@ -77,9 +77,7 @@ public class PedidoProduto {
         this.quantidade = quantidade;
     }
 
-    public Pedido getPedido(){
-        return pedido;
-    }
+
 
     public void print(){
         this.pedido.mostrarPedido();
