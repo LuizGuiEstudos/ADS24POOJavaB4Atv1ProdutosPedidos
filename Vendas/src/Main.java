@@ -38,6 +38,7 @@ public class Main {
             switch( scanOpt ) {
                 case 0:
                     System.out.println(">Saindo do programa...");
+                    break;
                 case 1:
                     addCliente();
                     break;
